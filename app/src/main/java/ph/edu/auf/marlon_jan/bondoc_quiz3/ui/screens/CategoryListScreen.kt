@@ -18,8 +18,6 @@ import ph.edu.auf.marlon_jan.bondoc_quiz3.ui.theme.BluePrimary
 import ph.edu.auf.marlon_jan.bondoc_quiz3.ui.theme.GreyCard
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.foundation.Image
-import androidx.compose.ui.res.painterResource
 
 @Composable
 fun CategoryListScreen(
@@ -31,26 +29,18 @@ fun CategoryListScreen(
     var pendingDeleteId by remember { mutableStateOf<String?>(null) }
 
     Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Image(
-                         painter = painterResource(id = R.drawable.ic_app_logo),
-                         contentDescription = "App Logo",
-                         modifier = Modifier.size(32.dp)
-                    )
-                }
+        topBar = { TopAppBar(title = { Text("Smart Expense Tracker") }) },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                onClick = { vm.setAddDialog(true) },
+                text = { Text("Add Category") },
+                icon = {}
             )
         }
-
     ) { padding ->
         Column(Modifier.fillMaxSize().padding(padding)) {
             Box(
-                Modifier
-                    .fillMaxWidth()
-                    .background(BluePrimary)
-                    .padding(16.dp),
-                contentAlignment = Alignment.Center // ← centers the text
+                Modifier.fillMaxWidth().background(BluePrimary).padding(16.dp)
             ) {
                 Text(
                     text = "Overall Total: ₱${"%.2f".format(state.overallTotal)}",
@@ -59,7 +49,6 @@ fun CategoryListScreen(
                     fontWeight = FontWeight.Bold
                 )
             }
-
 
             LazyColumn(
                 Modifier.fillMaxSize().padding(12.dp),
